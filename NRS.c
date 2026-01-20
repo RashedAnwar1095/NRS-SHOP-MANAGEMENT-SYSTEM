@@ -43,6 +43,7 @@ void border();
 int admin();
 //Main Interface
 void mainmenu();
+void about();
 //Product Management
 void productmanage();
 //-->
@@ -144,8 +145,8 @@ int admin()
         printf(MAGENTA1"***Wellcome to NRS Shop Management System***\n\n"RESET);
         printf(MAGENTA"1. Log in\n\n");
         printf("**Not Registered?**\n\n");
-        printf("2. Sign up\n\n");
-        printf("Enter your choice: "RESET);
+        printf("2. Sign up\n\n"RESET);
+        printf(YELLOW"Enter your choice: "RESET);
         scanf("%d", &x);
         switch(x)
         {
@@ -221,33 +222,33 @@ void mainmenu()
     printf(BLUE"1. Product Management\n");
     printf("2. Customer Management\n");
     printf("3. Sales Management\n");
-    printf("4. Exit\n\n"RESET);
+    printf("4. About\n");
+    printf("5. Exit\n\n"RESET);
     printf(YELLOW"Enter your choice: "RESET);
     scanf("%d",&n);
-    if(n==1)
+    switch(n)
     {
+        case 1:
         productmanage();
         break;
-    }
-    else if(n==2)
-    {
+        case 2:
         customermanage();
         break;
-    }
-    else if(n==3)
-    {
+        case 3:
         salemanage();
         break;
-    }
-    else if(n==4)
+        case 4:
+        about();
+        break;
+        case 5:
         printf(GREEN1"\n\nThank You for using NRS SHOP MANAGEMENT!!!\n"RESET);
-    else
-    {
+        default:
         printf(RED"Invalid choice. Please try again...\n"RESET);
         Sleep(1000);
+        break;
     }
     }
-    while(n!=4);
+    while(n!=5);
 }
 //enter product management
 void productmanage()
