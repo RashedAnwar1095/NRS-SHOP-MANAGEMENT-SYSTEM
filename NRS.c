@@ -99,7 +99,7 @@ return 0;
 /*******/
 void border()
 {
-    int A = 0;
+    int A = 10;
     printf(CYAN1);
     for (int i = 0; i <= 65; i++)
     {
@@ -127,7 +127,7 @@ void animate(const char *title)
     {
         printf("%c", title[i]);
         fflush(stdout);
-        Sleep(0);
+        Sleep(1);
     }
     printf("\n");
     printf(RESET);
