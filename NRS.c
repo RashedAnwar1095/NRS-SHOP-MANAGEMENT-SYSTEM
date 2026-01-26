@@ -585,3 +585,7 @@ void dailyreport()
 {
 
 }
+void about()
+{
+    
+}
