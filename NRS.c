@@ -34,6 +34,7 @@ typedef struct
     double price;
     int amount;
 }PRODUCT;
+
 //find function
 char *strstri(char a1[], char a2[]);
 //Animate title
@@ -242,6 +243,7 @@ void mainmenu()
         break;
         case 5:
         printf(GREEN1"\n\nThank You for using NRS SHOP MANAGEMENT!!!\n"RESET);
+        break;
         default:
         printf(RED"Invalid choice. Please try again...\n"RESET);
         Sleep(1000);
@@ -375,7 +377,7 @@ void updateproduct()
     scanf(" %[^\n]", name);
     FILE *Product = fopen("product.txt", "r");
     FILE *temp = fopen("temp.txt", "w");
-    if(Product!=NULL || temp!=NULL)
+    if(Product!=NULL && temp!=NULL)
     {
         while(fscanf(Product, "%[^,],%[^,],%lf,%d\n", update.id, update.name, &update.price, &update.amount)!=EOF)
         {
@@ -408,6 +410,7 @@ void updateproduct()
         printf(RED"\n\nAn Error Occured While Opening The File!"RESET);
     Sleep(1000);
 }
+//The srch funtion...
 char *strstri(char a1[], char a2[])
 {
     for(int i=0;a1[i]!='\0';i++)
