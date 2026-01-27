@@ -18,6 +18,17 @@
 #define VIOLET1 "\033[1;35m"//bold violet
 #define RESET "\033[0m"
 
+// Sales structure
+struct Sale
+{
+    char saleId[10];
+    char customerName[50];
+    char productName[50];
+    int quantity;
+    float price;
+    char date[20];
+};
+
 // coordinate count
 void gotoxy(int x, int y)
 {
@@ -527,20 +538,112 @@ void customermanage()
 
 void viewcustomers()
 {
+//Customer structure...
+typedef struct
+{
+    char id[20];
+    char name[50];
+    char mobile[20];
+} CUSTOMER;
 
+    system("cls");
+    CUSTOMER c;
+    FILE *fp = fopen("customer.txt", "r");
+    if (fp == NULL)
+    {
+        printf(RED "Customer file not found!\n" RESET);
+        Sleep(1000);
+        return;
+    }
+
+    printf(GREEN1 "%-15s%-30s%-15s\n", "Customer ID", "Customer Name", "Mobile" RESET);
+
+    while (fscanf(fp, "%[^,],%[^,],%[^\n]\n", c.id, c.name, c.mobile) == 3)
+    {
+        printf("%-15s%-30s%-15s\n", c.id, c.name, c.mobile);
+    }
+
+    fclose(fp);
+    printf("\n");
+    system("pause");
 }
 
 void viewcuspro()
 {
+    system("cls");
+    struct Sale s;
+    FILE *fp;
 
+    fp = fopen("sales.txt", "rb");
+    if (fp == NULL)
+    {
+        printf(RED "No sales record found!\n" RESET);
+        Sleep(1500);
+        return;
+    }
+
+    printf(CYAN1 "=== CUSTOMERS WITH PRODUCTS ===\n\n" RESET);
+
+    while (fread(&s, sizeof(s), 1, fp) == 1)
+    {
+        printf(GREEN"Customer : %s\n", s.customerName);
+        printf("Product  : %s\n", s.productName);
+        printf("Quantity : %d\n", s.quantity);
+        printf("Date     : %s\n"RESET, s.date);
+        printf(CYAN"-------------------------------\n"RESET);
+    }
+
+    fclose(fp);
+    system("pause");
 }
+
 
 void srchcustomer()
 {
+typedef struct
+{
+    char id[20];
+    char name[50];
+    char mobile[20];
+} CUSTOMER;
 
+    system("cls");
+    CUSTOMER c;
+    char key[100];
+    int found = 0;
+
+    printf(MAGENTA "Enter Customer Name or ID: " RESET);
+    scanf(" %[^\n]", key);
+
+    FILE *fp = fopen("customer.txt", "r");
+    if (fp == NULL)
+    {
+        printf(RED "Customer file not found!\n" RESET);
+        Sleep(1000);
+        return;
+    }
+
+    while (fscanf(fp, "%[^,],%[^,],%[^\n]\n", c.id, c.name, c.mobile) == 3)
+    {
+        if (strcasecmp(c.id, key) == 0 || strcasecmp(c.name, key) == 0)
+        {
+            found = 1;
+            printf(GREEN1 "\nCustomer Found!\n" RESET);
+            printf(GREEN "Customer ID   : %s\n", c.id);
+            printf("Customer Name : %s\n", c.name);
+            printf("Mobile        : %s\n\n" RESET, c.mobile);
+            break;
+        }
+    }
+
+    if (!found)
+        printf(RED "\nCustomer not found!\n" RESET);
+
+    fclose(fp);
+    system("pause");
 }
 //end customer management
-
+//enter sales management
 void salemanage()
 {
     int n;
