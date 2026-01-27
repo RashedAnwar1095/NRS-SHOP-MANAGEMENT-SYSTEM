@@ -191,7 +191,7 @@ int admin()
                     fclose(fp);
                     if(f)
                     {
-                        printf(GREEN"Log in successful!!!"RESET);
+                        printf(GREEN"\nLog in successful!!!"RESET);
                         Sleep(1000);
                         return 1;
                     }
@@ -264,6 +264,7 @@ void mainmenu()
         break;
         case 5:
         printf(GREEN1"\n\nThank You for using NRS SHOP MANAGEMENT!!!\n"RESET);
+        return;
         break;
         default:
         printf(RED"Invalid choice. Please try again...\n"RESET);
@@ -739,10 +740,11 @@ void makesales()
     time(&t);
     strftime(s.date, sizeof(s.date), "%d/%m/%Y", localtime(&t));
 
+    fwrite(&s, sizeof(s), 1, fp);
     fprintf(fp2, "%s,%s,%s\n", c.id,s.customerName,c.mobile);
 
-    fwrite(&s, sizeof(s), 1, fp);
     fclose(fp);
+    fclose(fp2);
 
     printf(GREEN "\nSale added successfully!\n" RESET);
     Sleep(1500);
@@ -798,23 +800,23 @@ void dailyreport()
     system("cls");
     printf(CYAN1 "=== DAILY SALES REPORT ===\n\n" RESET);
 
-    printf("Enter Date (dd/mm/yyyy): ");
+    printf(YELLOW"Enter Date (dd/mm/yyyy): "RESET);
     scanf("%s", searchDate);
 
     while (fread(&s, sizeof(s), 1, fp))
     {
         if (strcmp(s.date, searchDate) == 0)
         {
-            printf("Customer : %s\n", s.customerName);
+            printf(GREEN"Customer : %s\n", s.customerName);
             printf("Product  : %s\n", s.productName);
             printf("Quantity : %d\n", s.quantity);
-            printf("Amount   : %.2f\n\n", s.price);
+            printf("Amount   : %.2f\n\n"RESET, s.price);
 
             total += (s.quantity*s.price);
         }
     }
 
-    printf(GREEN "Total Sales Amount: %.2f\n" RESET, total);
+    printf(CYAN "Total Sales Amount: %.2f\n" RESET, total);
 
     fclose(fp);
     system("pause");
