@@ -3,6 +3,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<ctype.h>
+#include<time.h>
 // Color codes
 #define RED "\033[31m"
 #define GREEN "\033[32m"
@@ -28,6 +29,14 @@ struct Sale
     float price;
     char date[20];
 };
+
+//Customer structure
+typedef struct
+{
+    char id[20];
+    char name[50];
+    char mobile[20];
+} CUSTOMER;
 
 // coordinate count
 void gotoxy(int x, int y)
@@ -681,16 +690,134 @@ void salemanage()
 
 void makesales()
 {
+    struct Sale s;
+    CUSTOMER c;
+    FILE *fp;
+    FILE *fp2;
+    time_t t;
 
+    fp = fopen("sales.txt", "a");
+    if (fp == NULL)
+    {
+        printf(RED "File not found!\n" RESET);
+        return;
+    }
+
+    fp2 = fopen("customer.txt", "a");
+    if (fp2 == NULL)
+    {
+        printf(RED "File not found!\n" RESET);
+        return;
+    }
+
+    system("cls");
+    printf(CYAN1 "=== MAKE SALES ===\n\n" RESET);
+
+    printf("Enter Sale ID: ");
+    scanf(" %s", s.saleId);
+
+    printf("Enter Customer Name: ");
+    scanf(" %s", s.customerName);
+
+    printf("Enter Customer Id: ");
+    scanf(" %s", c.id);
+    
+    printf("Enter Customer Mobile: ");
+    scanf(" %s", c.mobile);
+
+    printf("Enter Product Name: ");
+    scanf(" %s", s.productName);
+
+    printf("Enter Quantity: ");
+    scanf("%d", &s.quantity);
+
+    printf("Enter Price: ");
+    scanf("%f", &s.price);
+
+    printf(GREEN "Total Price: %.2f\n" RESET ,(s.quantity*s.price));
+
+    time(&t);
+    strftime(s.date, sizeof(s.date), "%d/%m/%Y", localtime(&t));
+
+    fprintf(fp2, "%s,%s,%s\n", c.id,s.customerName,c.mobile);
+
+    fwrite(&s, sizeof(s), 1, fp);
+    fclose(fp);
+
+    printf(GREEN "\nSale added successfully!\n" RESET);
+    Sleep(1500);
 }
 
 void viewsales()
 {
+    struct Sale s;
+    FILE *fp;
 
+    fp = fopen("sales.txt", "r");
+    if (fp == NULL)
+    {
+        printf(RED "No sales record found!\n" RESET);
+        Sleep(1500);
+        return;
+    }
+
+    system("cls");
+    printf(CYAN1 "=== ALL SALES RECORD ===\n\n" RESET);
+
+    while (fread(&s, sizeof(s), 1, fp))
+    {
+        printf(GREEN"Sale ID     : %s\n", s.saleId);
+        printf("Customer    : %s\n", s.customerName);
+        printf("Product     : %s\n", s.productName);
+        printf("Quantity    : %d\n", s.quantity);
+        printf("Price       : %.2f\n", s.price);
+        printf("Total Price : %.2f\n", (s.quantity*s.price));
+        printf("Date        : %s\n"RESET, s.date);
+        printf(CYAN"----------------------------\n"RESET);
+    }
+
+    fclose(fp);
+    system("pause");
 }
+
 void dailyreport()
 {
+    struct Sale s;
+    FILE *fp;
+    char searchDate[20];
+    float total = 0;
 
+    fp = fopen("sales.txt", "r");
+    if (fp == NULL)
+    {
+        printf(RED "No sales record found!\n" RESET);
+        Sleep(1500);
+        return;
+    }
+
+    system("cls");
+    printf(CYAN1 "=== DAILY SALES REPORT ===\n\n" RESET);
+
+    printf("Enter Date (dd/mm/yyyy): ");
+    scanf("%s", searchDate);
+
+    while (fread(&s, sizeof(s), 1, fp))
+    {
+        if (strcmp(s.date, searchDate) == 0)
+        {
+            printf("Customer : %s\n", s.customerName);
+            printf("Product  : %s\n", s.productName);
+            printf("Quantity : %d\n", s.quantity);
+            printf("Amount   : %.2f\n\n", s.price);
+
+            total += (s.quantity*s.price);
+        }
+    }
+
+    printf(GREEN "Total Sales Amount: %.2f\n" RESET, total);
+
+    fclose(fp);
+    system("pause");
 }
 void about()
 {
