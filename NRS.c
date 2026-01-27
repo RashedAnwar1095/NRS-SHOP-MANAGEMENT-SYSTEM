@@ -172,6 +172,7 @@ int admin()
                     if(f)
                     {
                         printf(GREEN"Log in successful!!!"RESET);
+                        Sleep(1000);
                         return 1;
                     }
                     else
@@ -590,5 +591,16 @@ void dailyreport()
 }
 void about()
 {
-    
+    system("cls");
+    printf(GREEN1"============================================================================="RESET);
+    char *print = "\n\nThe NRS Shop Management CRM provides a complete mini solution for small shops.\n"
+            "It manages customers, products, sales, invoices, inventory, and reporting efficiently\n" 
+            "using C file handling.\n\n";
+    printf(CYAN1"%s"RESET, print);
+    printf(GREEN1"Developer Team:\n\n"RESET);
+    printf(CYAN1"1. Mohammad Rashed Anwar Ovi    C253104\n");
+    printf("2. Saroar Alam                  C253031\n");
+    printf("3. Ahmad Nayeem Uddin khan      C253026\n\n"RESET);
+    printf(GREEN1"=============================================================================\n\n"RESET);
+    system("pause");
 }
