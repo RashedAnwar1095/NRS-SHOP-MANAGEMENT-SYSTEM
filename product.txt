@@ -6,7 +6,7 @@ P104,Pomegranate,15.00,40
 P105,Watermelon,45.00,4
 P106,Pineapple,60.00,27
 P107,Guava,9.99,45
-P108,Dragon fruit,40.00,6
+P108,Dragon fruit,40.00,30
 P109,Kiwi,30.00,67
 P110,Mango,15.00,70
 P111,Jackfruit,20.00,35

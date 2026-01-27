@@ -714,19 +714,19 @@ void makesales()
     printf(CYAN1 "=== MAKE SALES ===\n\n" RESET);
 
     printf("Enter Sale ID: ");
-    scanf(" %s", s.saleId);
+    scanf(" %[^\n]", s.saleId);
 
     printf("Enter Customer Name: ");
-    scanf(" %s", s.customerName);
+    scanf(" %[^\n]", s.customerName);
 
     printf("Enter Customer Id: ");
-    scanf(" %s", c.id);
+    scanf(" %[^\n]", c.id);
     
     printf("Enter Customer Mobile: ");
-    scanf(" %s", c.mobile);
+    scanf(" %[^\n]", c.mobile);
 
     printf("Enter Product Name: ");
-    scanf(" %s", s.productName);
+    scanf(" %[^\n]", s.productName);
 
     printf("Enter Quantity: ");
     scanf("%d", &s.quantity);
