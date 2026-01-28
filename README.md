@@ -34,8 +34,7 @@ This project demonstrates how real-world business operations can be implemented 
 
 # 🎯 Project Purpose
 The purpose of this project is to:
-❇️Apply C programming in a real-life use case
-
+❇️Apply C programming in a real-life use case\n
 ❇️Practice file handling (CRUD operations)
 
 ❇️Understand structure-based data storage
